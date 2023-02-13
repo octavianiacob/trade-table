@@ -44,6 +44,18 @@ function App() {
     setIsModalOpen(false);
   };
 
+  const deleteTrade = (tradeId: number) => {
+    setTrades(trades.filter((trade) => trade.tradeId !== tradeId));
+  };
+
+  const updateTrade = (trade: Trade) => {
+    setTrades(
+      trades.map((tradeItem) =>
+        tradeItem.tradeId === trade.tradeId ? trade : tradeItem
+      )
+    );
+  };
+
   const handleModalOpen = () => setIsModalOpen(true);
   const handleModalClose = () => setIsModalOpen(false);
 
@@ -53,7 +65,11 @@ function App() {
         <h1 className="font-bold text-4xl">Sample Trades</h1>
         <Button onClick={handleModalOpen}>+</Button>
       </div>
-      <TradeTable trades={trades} />
+      <TradeTable
+        trades={trades}
+        deleteTrade={deleteTrade}
+        updateTrade={updateTrade}
+      />
       {isModalOpen && (
         <AddTradeModal
           isModalOpen={isModalOpen}

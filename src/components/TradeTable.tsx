@@ -1,19 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { Trade } from "../App";
 import useContextMenu from "../hooks/useContextMenu";
+import AmendTradeModal from "./AmendTradeModal";
 import ContextMenu from "./ContextMenu";
 
 interface TradeTableProps {
   trades: Trade[];
+  updateTrade: (trade: Trade) => void;
+  deleteTrade: (tradeId: number) => void;
 }
 
-function TradeTable({ trades }: TradeTableProps) {
+const emptyTrade: Trade = {
+  tradeId: 0,
+  securityCode: "",
+  tradePrice: 0,
+  tradeVolume: 0,
+  tradeOwner: "",
+};
+
+function TradeTable({ trades, updateTrade, deleteTrade }: TradeTableProps) {
+  const [isAmendModalOpen, setIsAmendModalOpen] = useState(false);
   const {
     showContextMenu,
     contextMenuPosition,
     contextMenuRef,
     openContextMenu,
+    closeContextMenu,
+    selectedTrade,
   } = useContextMenu();
+
+  const handleModalOpen = () => {
+    setIsAmendModalOpen(true);
+    closeContextMenu();
+  };
+  const handleModalClose = () => setIsAmendModalOpen(false);
+  const handleDelete = () => {
+    if (!selectedTrade) return;
+    deleteTrade(selectedTrade.tradeId);
+    closeContextMenu();
+  };
 
   return (
     <>
@@ -92,7 +117,20 @@ function TradeTable({ trades }: TradeTableProps) {
         </tbody>
       </table>
       {showContextMenu && (
-        <ContextMenu ref={contextMenuRef} position={contextMenuPosition} />
+        <ContextMenu
+          ref={contextMenuRef}
+          position={contextMenuPosition}
+          handleModalOpen={handleModalOpen}
+          handleDelete={handleDelete}
+        />
+      )}
+      {isAmendModalOpen && (
+        <AmendTradeModal
+          isModalOpen={isAmendModalOpen}
+          onClose={handleModalClose}
+          selectedTrade={selectedTrade ?? emptyTrade}
+          updateTrade={updateTrade}
+        />
       )}
     </>
   );
