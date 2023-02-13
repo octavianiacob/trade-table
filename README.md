@@ -2,6 +2,8 @@
 
 ## Getting Started
 
+The deployed project can be accesed at https://trade-table.vercel.app/
+
 These instructions will get the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
