@@ -28,3 +28,24 @@ The app will be available at http://localhost:5173
 2. Build the production version of the app  
 ```npm run build```  
 The production-ready version of the app will be available in the dist directory.
+
+## Assumptions, design decisions and trade-offs
+
+### Assumptions:
+
+- The initial data is provided and hardcoded in the project.
+- The trade table should be centered in the browser.
+- The user should be able to add, edit, and delete trades.
+- The trade table should have a title, "Sample Trades".
+- The trade table should have appropriate CSS styles.
+- The trade table should display the trade price and trade volume with comma's separated every three digits and at most 2 decimal places.
+- The trade table should have the ability to add a trade through a modal dialog.
+- The trade table should have the ability to edit and delete trades through a context menu.
+
+### Design decisions:
+- Used TailwindCSS for faster development and using a consistent design system
+
+### Trade-offs:
+
+- The application is not fully functional on mobile devices, due to the MouseEvent that is triggering the context menu. To fix this, touch events should also be supported.
+
