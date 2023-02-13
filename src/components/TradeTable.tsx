@@ -97,10 +97,7 @@ function TradeTable({ trades, updateTrade, deleteTrade }: TradeTableProps) {
                 })}
               </td>
               <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                {trade.tradeVolume.toLocaleString("en-US", {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}
+                {trade.tradeVolume.toLocaleString("en-US")}
               </td>
               <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                 {trade.tradeOwner}

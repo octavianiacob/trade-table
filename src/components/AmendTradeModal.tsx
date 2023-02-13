@@ -44,6 +44,7 @@ function AmendTradeModal({
         <Input
           type="number"
           value={trade.tradeVolume}
+          isInteger={true}
           onChange={(e) =>
             setTrade({ ...trade, tradeVolume: Number(e.target.value) })
           }
