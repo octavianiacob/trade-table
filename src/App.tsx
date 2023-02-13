@@ -1,34 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState } from "react";
+import TradeTable from "./components/TradeTable";
+import Button from "./components/Button";
+
+export interface Trade {
+  tradeId: number;
+  securityCode: string;
+  tradePrice: number;
+  tradeVolume: number;
+  tradeOwner: string;
+}
+
+const sampleTrades: Trade[] = [
+  {
+    tradeId: 1,
+    securityCode: "AAPL",
+    tradePrice: 1010,
+    tradeVolume: 1000,
+    tradeOwner: "John",
+  },
+  {
+    tradeId: 2,
+    securityCode: "GOOG",
+    tradePrice: 520.5,
+    tradeVolume: 500,
+    tradeOwner: "Alice",
+  },
+  {
+    tradeId: 3,
+    securityCode: "BTC",
+    tradePrice: 19520,
+    tradeVolume: 2000,
+    tradeOwner: "Bob",
+  },
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [trades, setTrades] = useState(sampleTrades);
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="flex justify-between mb-5">
+        <h1 className="font-bold text-4xl">Sample Trades</h1>
+        <Button onClick={() => {}}>+</Button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <TradeTable trades={trades} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
