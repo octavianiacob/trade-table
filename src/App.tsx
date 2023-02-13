@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TradeTable from "./components/TradeTable";
+import AddTradeModal from "./components/AddTradeModal";
 import Button from "./components/Button";
 
 export interface Trade {
@@ -36,14 +37,31 @@ const sampleTrades: Trade[] = [
 
 function App() {
   const [trades, setTrades] = useState(sampleTrades);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const createTrade = (trade: Trade) => {
+    setTrades([...trades, trade]);
+    setIsModalOpen(false);
+  };
+
+  const handleModalOpen = () => setIsModalOpen(true);
+  const handleModalClose = () => setIsModalOpen(false);
 
   return (
     <div className="App">
       <div className="flex justify-between mb-5">
         <h1 className="font-bold text-4xl">Sample Trades</h1>
-        <Button onClick={() => {}}>+</Button>
+        <Button onClick={handleModalOpen}>+</Button>
       </div>
       <TradeTable trades={trades} />
+      {isModalOpen && (
+        <AddTradeModal
+          isModalOpen={isModalOpen}
+          onClose={handleModalClose}
+          createTrade={createTrade}
+          trades={trades}
+        />
+      )}
     </div>
   );
 }
